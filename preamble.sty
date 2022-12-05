@@ -99,6 +99,7 @@
 \newcommand{\Q}{\mathbb{Q}}
 \newcommand{\K}{\mathbb{K}}
 \newcommand{\C}{\mathbb{C}}
+\newcommand{\Ps}{\mathfrak{P}}
 \let\ker\relax\DeclareMathOperator{\ker}{Ker}
 
 \makeatletter
@@ -161,3 +162,11 @@
 \makeatletter
 \providecommand*{\toclevel@sectioninfo}{1} 
 \makeatother
+
+\usepackage{wrapfig}
+\usepackage{multicol}
+\usepackage{changepage}
+
+\newenvironment{demo}{\vspace{-1em}\begin{adjustwidth}{1cm}{1cm} \color{gray} $\blacktriangleright$ \small \color{gray!50!black} Démonstration : }{\color{gray} \normalsize $\blacktriangleleft$ \end{adjustwidth}\medskip}
+
+\usepackage{wasysym}

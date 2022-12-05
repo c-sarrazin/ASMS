@@ -1,0 +1,144 @@
+\subsection*{Premières opérations ensemblistes}
+On considère ici qu'un ensemble est un concept intuitif, qui correspond à une collection d'objets mathématiques. Ces objets sont définis par une propriété ou par une liste exhaustive, de la façon suivante~: 
+\begin{itemize}
+    \item $\R_+ = \{x\in \R |x\geq 0\}$
+    \item $P = \{1,4,9,16\} = \{n \in \N | n \text{ est un carré parfait et } n<20\}$
+\end{itemize}
+Cette première expression se lit par exemple «~$\R_+$ est l'ensemble des $x$ dans $\R$ tels que $x\geq 0$~».
+
+On verra dans le chapitre suivant que pour éviter d'aboutir à certaines contradictions techniques, il est nécessaire de restreindre quelque peu ce qu'on s'autorise à considérer comme un ensemble. Mais pour le moment, on suppose acquise cette fondation et on introduit un peu de vocabulaire, en commençant par les opérations ensemblistes de base.
+
+\begin{defini}[Union et intersection]
+    Soient $A$ et $B$ deux ensembles. 
+    
+    On note $A\cup B$ l'union de $A$ et $B$, c'est à dire l'ensemble \[\{x|x\in A \text{ ou } x\in B\}\] 
+    On note $A\cap B$ l'intersection de $A$ et $B$, c'est à dire l'ensemble \[\{x|x\in A \text{ ou } x\in B\}\]
+\end{defini}
+
+Cette situation est bien résumée par un diagramme de Venn :
+
+\medskip
+\begin{tikzpicture}
+\draw[color=gray] (0,0) rectangle (\textwidth, 2);
+\draw[color=cadmiumred] (\textwidth/5, 1) circle (0.8);
+\draw[color=cobalt] (\textwidth/10, 1) circle (0.8);
+\draw (\textwidth/2, 1) node{Grave la flemme mais l'idée est là};
+\draw[color=cadmiumred] (9\textwidth/10, 1) circle (0.8);
+\draw[color=cobalt] (4\textwidth/5, 1) circle (0.8);
+\end{tikzpicture}
+
+Ces opérations sont la transcription directe du «~et~» et du «~ou~» logique\footnote[1]{Notons que le ou logique, contrairement à certains usages en français, est un ou inclusif : autrement dit, $P$ ou $Q$ signifie que soit $P$ est vrai, soit $Q$ est vrai, soit $P$ et $Q$ sont tous deux vrais. On verra dans quelques pages l'opération ensembliste traduisant le ou exclusif ($P$ ou $Q$ mais pas les deux.)}. On peut donc écrire nos premières propriétés : 
+
+\begin{prop}
+    Pour tous ensembles $A$, $B$ et $C$ :
+    \begin{multicols}{2}
+    \begin{itemize}
+        \item $A\cup A=A$
+        \item $A\cup B=B\cup A$
+        \item $(A\cup B)\cup C = A\cup(B\cup C)$ 
+        \item $A\cap(B\cup C)=(A\cap B) \cup (A\cap C)$
+        \item $A\cap A=A$
+        \item $A\cap B=B\cap A$
+        \item $(A\cap B)\cap C = A\cap(B\cap C)$
+        \item $A\cup(B\cap C)=(A\cup B) \cap (A\cup C)$
+    \end{itemize}
+\end{multicols}
+    Ces propriétés s'appellent respectivement l'idempotence, la commutativité, l'associativité et la distributivité.
+\end{prop}
+\begin{demo}
+    Ces propriétés proviennent directement des propriétés des opérateurs logiques et et ou. Par exemple, étant donné une proposition $P$, $P$ ou $P$ équivaut à $P$.
+\end{demo}
+
+On peut encore faire quelques diagrammes de Venn pour illustrer la situation.
+
+\medskip
+\begin{tikzpicture}
+\draw[color=gray] (0,0) rectangle (\textwidth, 2);
+\draw (\textwidth/2, 1) node{Toujours pas};
+\end{tikzpicture}
+
+On peut encore transcrire l'implication logique par la notion de partie.
+
+\begin{defini}[Parties]
+    Soit $A$ et $B$ deux ensembles. On dit que $A$ est inclus, contenu dans $B$, ou encore que c'est une partie ou un sous-ensemble de $B$, quand $x\in A \implies x\in B$, c'est à dire $\forall x\in A, x\in B$. On le note $A\subset B$. On notera $\Ps(B)$ l'ensemble de toutes les parties de $B$.
+\end{defini}
+
+Par exemple, comme $x\in A \text{ et } x\in B \implies x\in A$, il est facile de se convaincrelèvent que $A\cap B$ est une partie de $A$.
+
+Un ensemble remarquable est l'ensemble vide, ne comportant aucun élément, qu'on note $\varnothing$ : $x\in\varnothing$ étant toujours faux, l'implication $x\in\varnothing \implies x\in A$ est, elle, toujours vraie, et pour tout ensemble $A$, $\varnothing \subset A$.  
+
+\newpage
+De plus, dans le cas particulier où $A$ est un ensemble avec un nombre fini d'éléments, on peut lister toutes ses parties. Par exemple, l'ensemble $\{1,2\}$ a pour parties~:
+\[\varnothing \qquad \{1\} \qquad \{2\} \qquad \{1,2\}\]  
+$\Ps(\{1,2\})$ comporte donc 4 éléments.
+
+\begin{prop}
+    Soit $E$ un ensemble à $n$ éléments. Alors $\Ps(E)$ comporte $2^n$ éléments.
+\end{prop}
+\begin{demo}
+    Dénombrons toutes les parties de $E$. On peut faire la liste de tous les éléments de $E$, de telle sorte qu'il a un sens de parler du premier élément, du deuxième, etc. On a deux choix pour le premier élément : soit on l'inclut, soit on ne l'inclut pas. De même, on a ensuite deux choix pour le deuxième élément, ce qui nous amène à un total de quatre choix, et ainsi de suite : on aura huit choix au troisième élément et de proche en proche $2^n$ à l'énième.
+\end{demo}
+
+Enfin, la négation logique correspond à la notion de complémentaire, et à la notion liée d'ensemble privé d'un autre.
+
+\begin{defini}[Complémentaire et « privé de »]
+    Soit $A$ une partie de $B$. On note ${A}_C$ l'ensemble $\{x\in B|x\not\in A\}$. C'est le complémentaire de $A$ dans $B$.
+
+\medskip
+    Soient maintenant $A$ et $B$ quelconques. On note $B\backslash A$ et on lit « $B$ privé de $A$ » le complémentaire de $A\cap B$ (qu'on sait être une partie de $B$) dans $B$.
+
+\medskip
+    Quand $A$ est une partie de $B$, comme $A\cap B = A$, ces deux notions sont confondues.
+\end{defini}
+
+Remarquons que la notation $A_C$ peut être ambiguë si il y a un doute sur l'ensemble de référence : en clair, dans une situation où on manipule trois ensembles $A$, $B$ et $C$ avec $A\subset B \subset C$, $A_C$ peut être le complémentaire de $A$ dans $B$ ou dans $C$. Dans une telle situation, on préférera les notations $B\backslash A$ et $C\backslash A$ qui dissiperont ce doute.
+
+\medskip
+Comme précédemment pour les unions et les intersections, on dispose de propriétés permettant de simplifier certaines expressions.
+
+\begin{prop}
+    Soient $A$ et $B$ deux parties d'un même ensemble.
+\begin{itemize}
+    \item $(A_C)_C=A$
+    \item $(A\cup B)_C= A_C \cap B_C$
+    \item $(A\cap B)_C= A_C \cup B_C$
+\end{itemize}    
+\end{prop}
+
+Ces deux dernières propriétés s'appellent les lois de De Morgan, et s'illustrent bien par des diagrames de Venn.
+
+\medskip
+\begin{tikzpicture}
+\draw[color=gray] (0,0) rectangle (\textwidth, 2);
+\draw (\textwidth/2, 1) node{\eighthnote \textit{ Never gonna give you up, never gonna let you down} \twonotes};
+\end{tikzpicture}
+
+
+\medskip
+On peut maintenant définir une opération qui rend compte du « ou exclusif » :
+\begin{wrapfigure}[2]{r}{0.33\textwidth}
+    \vspace{-0.5em}
+    \begin{tikzpicture}
+        \draw[color=gray] (0,0) rectangle (\textwidth/3, 2.1);
+        \draw (\textwidth/6, 1.05) node{Hahahahaha};
+    \end{tikzpicture}
+\end{wrapfigure}
+
+\vspace{-1em}
+\begin{defini}
+    Soit $A$ et $B$ deux ensembles. On note $A\Delta B$ la différence symétrique de $A$ et $B$ c'est à dire l'ensemble $A\cup B \backslash A\cap B$.
+\end{defini}
+
+Enfin, une dernière opération est importante pour la suite : le produit cartésien. 
+
+\begin{defini}
+Soient deux ensembles $A$ et $B$. Le produit cartésien $A\times B$ («~A croix B~») est l'ensemble des couples $(a,b)$ où $a$ appartient à $A$ et $b$ appartient à $B$.
+\end{defini}
+
+On suppose ici que la notion de couple est intuitive\footnote{Cela dit, on peut aussi définir un couple d'une façon purement ensembliste, par exemple en posant $(a,b)=\{a, \{a, b\}\}$. Une telle définition permet d'identifier le premier élément, mais elle peut sembler artificielle à ce stade.} : il s'agit d'une paire ordonnée, contrairement à un ensemble à deux éléments qui ne l'est pas. Autrement dit $(a,b)=(a',b')\implies a=a' \text{ et } b=b'$, tandis que $\{a,b\}=\{a',b'\}\implies (a=a' \text{ et } b=b') \text{ ou } (a=b' \text{ et } b=a')$. 
+
+En l'état, $(A\times B)\times C$ et $A\times (B\times C)$ ne sont pas égaux, mais une fois qu'on disposera d'une définition du produit cartésien d'une famille d'ensembles (une fois que celles-ci auront été définies) on pourra identifier ces deux ensembles à $A\times B \times C$. Pour le moment ceci n'est pas très important, et on peut provisoirement se restreindre à des situations mettant en jeu le produit simple de deux éléments. En particulier, ceci suffit pour définir les relations binaires.
+
+\subsection*{Relations binaires, d'ordre, d'équivalence}
+\subsection*{Applications et familles}
+\subsection*{Bijection et cardinal}
