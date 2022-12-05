@@ -1,0 +1,150 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{preamble}[Préambule.]
+
+\usepackage[french]{babel}
+\usepackage[T1]{fontenc}
+\usepackage[a5paper, margin=1.3cm]{geometry}
+
+\usepackage {lipsum}
+\usepackage{titlesec}
+\titleformat{\chapter}[display]
+{\normalfont\huge\bfseries}{\chaptertitlename\ \thechapter}{20pt}{\Huge}
+\titlespacing*{\chapter}{0pt}{0pt}{40pt}
+
+\usepackage{epigraph}
+\setlength\epigraphwidth{10cm}
+\setlength\epigraphrule{0pt}
+
+\usepackage{fix-cm}    
+
+\makeatletter
+\newcommand\HUGE{\@setfontsize\Huge{50}{50}}
+\makeatother 
+
+\newcommand{\partie}[2]{\part[#1]{#1\\[2\bigskipamount] \large #2}}
+
+\usepackage{graphicx}
+\usepackage{transparent}
+\usepackage{eso-pic}
+\AddToShipoutPicture*{
+    \put(0,0){
+        \parbox[b][\paperheight]{\paperwidth}{%
+            \vfill
+            \centering
+            {\transparent{0.15}\includegraphics[width=2.1\textwidth]{background.png}}%
+            \vfill
+        }
+    }
+}
+\setlength{\parindent}{0pt}
+
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsthm}
+
+\usepackage{tikz}
+\usepackage{xcolor}
+\usepackage[most]{tcolorbox}
+\usepackage{enumitem}
+\usepackage{ifthen}
+\usepackage[hidelinks]{hyperref}
+\usepackage{stmaryrd}
+\usepackage{mathtools}
+\usepackage{csquotes}
+\usepackage{colortbl}
+
+\newcounter{theoreme}
+\newenvironment{theoreme}[1][]{\refstepcounter{theoreme}
+\medskip\begin{tcolorbox}[enhanced,skin=enhancedmiddle,
+    colframe=gray!10!white, leftrule=0pt, rightrule=0pt, bottom=0mm,boxsep=1mm,
+    borderline west={0.1mm}{0mm}{black},
+    borderline west={0.1mm}{1mm}{black}, title={\color{black} \textbf{Théorème \thetheoreme} \ifthenelse{\equal{#1}{}}{}{\ (\textsc{#1})}}]}{\end{tcolorbox}\medskip}
+
+\newcounter{defini}
+\newenvironment{defini}[1][]{\refstepcounter{defini}
+\medskip\begin{tcolorbox}[coltitle=black, colframe=blue!50!green!40!white, colback=white, adjusted title=Définition~\thedefini \ifthenelse{\equal{#1}{}}{}{\ (#1)}]}{\end{tcolorbox}\medskip}
+
+\newcounter{prop}
+\newenvironment{prop}[1][]{\refstepcounter{prop}
+\medskip\begin{tcolorbox}[coltitle=black, colframe=blue!50!green!20!white, colback=white, adjusted title=Propriété~\theprop \ifthenelse{\equal{#1}{}}{}{\ (#1)}]}{\end{tcolorbox}\medskip}
+
+\newcounter{exo}
+\newenvironment{exo}[1][]{\refstepcounter{exo}
+\medskip\begin{tcolorbox}[coltitle=black, colframe=blue!50!green!20!white, colback=white, adjusted title=Exercice~\theexo \ifthenelse{\equal{#1}{}}{}{\ (#1)}]}{\end{tcolorbox}\medskip}
+
+\newcounter{ex}
+\newenvironment{ex}[1][]{\refstepcounter{ex}
+\medskip\begin{tcolorbox}[coltitle=black, colframe=blue!50!green!20!white, colback=white, adjusted title=Exemple~\theex \ifthenelse{\equal{#1}{}}{}{\ (#1)}]}{\end{tcolorbox}\medskip}
+
+\newenvironment{boite}[1]{\medskip\begin{tcolorbox}[coltitle=black, colframe=blue!50!green!20!white, colback=white, adjusted title=#1]}{\end{tcolorbox}\medskip}
+
+\newenvironment{suite}{\addtocounter{prop}{-1}\begin{prop}[Suite]}{\end{prop}}
+
+\DeclareMathOperator{\Ima}{Im}
+\DeclareMathOperator{\Id}{Id}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\K}{\mathbb{K}}
+\newcommand{\C}{\mathbb{C}}
+\let\ker\relax\DeclareMathOperator{\ker}{Ker}
+
+\makeatletter
+% Basically the same as for `\l@section` etc, just `\@nodottedtocline` instead of `\@dottedtcline`:
+\newcommand*\l@chapterinfo{\@nodottedtocline{0}{0.0em}{1.5em}}
+\newcommand*\l@sectioninfo{\@nodottedtocline{1}{1.5em}{2.3em}}
+\newcommand*\l@subsectioninfo{\@nodottedtocline{2}{3.8em}{3.2em}}
+\newcommand*\l@subsubsectioninfo{\@nodottedtocline{3}{7.0em}{4.1em}}
+\newcommand*\l@paragraphinfo{\@nodottedtocline{4}{10em}{5em}}
+\newcommand*\l@subparagraphinfo{\@nodottedtocline{5}{12em}{6em}}
+
+% Copied from the book class macro `\@dottedtocline`. Removed the dots and page number
+\def\@nodottedtocline#1#2#3#4#5{%
+  \ifnum #1>\c@tocdepth \else
+    \vskip \z@ \@plus.2\p@
+    {\leftskip #2\relax \rightskip \@tocrmarg \parfillskip -\rightskip
+     \parindent #2\relax\@afterindenttrue
+     \interlinepenalty\@M
+     \leavevmode
+     \@tempdima #3\relax
+     \advance\leftskip \@tempdima \null\nobreak\hskip -\leftskip
+     {#4}\nobreak
+     \leaders\hbox{$\m@th
+        \mkern \@dotsep mu\hbox{\,}\mkern \@dotsep
+        mu$}\hfill
+     \nobreak
+     \hb@xt@\@pnumwidth{\hfil\normalfont \normalcolor }%
+     \par}%
+  \fi}
+
+\makeatother
+
+\def\chapterinfo#1{%
+    \addcontentsline{toc}{chapterinfo}{%
+    \noexpand\numberline{}#1}%
+}
+\def\sectioninfo#1{%
+    \addcontentsline{toc}{sectioninfo}{%
+    \texorpdfstring{\noexpand\numberline{}#1}{}}%
+}
+\def\subsectioninfo#1{%
+    \addcontentsline{toc}{subsectioninfo}{%
+    \noexpand\numberline{}#1}%
+}
+
+\setcounter{tocdepth}{1}
+
+\usepackage{latexcolors}
+
+\newcommand{\bluesection}[2]{\section[\texorpdfstring{\color{cobalt!50!black}#1}{#1}]{#1}
+\sectioninfo{\texorpdfstring{{\large \color{cobalt} $\blacktriangleright$ \color{black}}~#2~{\large \color{cobalt} $\blacktriangleleft$ \color{black}}}{}}}
+
+\newcommand{\greensection}[2]{\section[\texorpdfstring{\color{cadmiumgreen!50!black}#1}{#1}]{#1}
+\sectioninfo{\texorpdfstring{{\large \color{cadmiumgreen} $\blacktriangleright$ \color{black}}~#2~{\large \color{cadmiumgreen} $\blacktriangleleft$ \color{black}}}{}}}
+
+\usepackage{bookmark}
+\makeatletter
+\providecommand*{\toclevel@sectioninfo}{1} 
+\makeatother

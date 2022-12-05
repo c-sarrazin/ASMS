@@ -1,0 +1,340 @@
+\titre{Construction de $\mathbb{R}$ et de $\mathbb{C}$}{Suites de Cauchy, coupures de Dedekind, théorèmes fondamentaux pour l'analyse}
+\subsection{Motivation et suites de Cauchy}
+\subsubsection{Pourquoi $\mathbb{R}$ ?}
+Qu'est ce que l'ensemble des réels ? 
+Intuitivement, c'est l'ensemble des nombres rationnels dont on a "rempli les trous". Mais que sont donc ces trous ? Par exemple, une solution de $x^2=2$ :
+
+\begin{boite}{Une preuve de l'irrationnalité de $\sqrt{2}$}
+    On suppose qu'il existe deux entiers $p,q$ premiers entre eux tels que $\left(\frac{p}{q}\right)^{2}=2$. Alors $p^2=2q^2$, donc $p^2$ est pair. Mais tout entier ayant la même parité que son carré, $p$ est également pair. Avec $p=2k$, il vient $4k^2=2q^2$, d'où $2k^2=q^2$, et rebelote : $q$ est pair.
+
+    On avait supposé la fraction irréductible, et pourtant $\mathrm{PGCD}(p,q) \geq 2...$. C'est impossible, donc $\sqrt{2}$ est irrationnel.
+\end{boite}
+
+Comment faire sens alors d'une telle solution ?
+
+Peut être d'une façon approchée : par exemple, en construisant une suite de rationnels dont le carré converge vers 2. 
+
+\begin{exo}[Méthode de Héron pour l'approximation de $\sqrt{2}$]
+    On définit par récurrence la suite rationnelle suivante :
+$$\begin{cases}
+u_0=2\\
+u_{n+1}= \frac{1}{2}(u_n+\frac{2}{u_n})\\
+\end{cases}$$
+\begin{enumerate}[font=\color{blue!50!green}]
+    \item Montrer que $u_n^2>2$.
+    \item Montrer (sans utiliser le théorème de la limite monotone, puisqu'il n'est pas valable pour des suites rationelles) que la suite définie par $v_0=2$ et $v_{n+1}=(\frac{v_n}{2})^2$ tend vers 0.
+    \item Montrer que $u_n^2 \to 2$, en procédant par majoration de $u_n^2-2$ par $v_n$.
+\end{enumerate}
+\end{exo}
+
+Les termes de cette suite sont successivement, en valeur approchée, [...]. Ils semblent être de plus en plus proches les uns des autres. On peut formaliser cette notion.
+
+\begin{defini}
+On dit qu'une suite $(u_n)$ est de Cauchy quand :
+$$\forall \varepsilon > 0, \exists N \in \mathbb{N}, (m \geq N \text{ et } n \geq N) \implies |u_n-u_m| < \varepsilon$$
+Intuitivement, cela veut dire que les termes sont de plus en plus proches deux à deux.
+
+On notera $\mathcal{C}_{\mathbb{Q}}$ l'ensemble des suites de Cauchy rationnelles.
+\end{defini}
+
+\begin{prop}
+Toute suite convergente est de Cauchy.
+\tcblower
+On rappelle que $u_n \to l$ quand :
+$$\forall \varepsilon > 0, \exists N \in \mathbb{N}, n \geq N \implies |u_n-l| < \varepsilon$$
+Soit $u_n \to l$ et $\varepsilon > 0$.
+$$\exists N \in \mathbb{N}, n \geq N \implies l-\varepsilon/2 < u_n < l+\varepsilon/2$$
+Alors si $n \geq N$et $m \geq  N$ :
+$$l-\varepsilon/2 < u_n < l+\varepsilon/2$$
+$$l-\varepsilon/2 < u_m < l+\varepsilon/2$$
+D'où :
+$$-\varepsilon < u_n-u_m < \varepsilon$$
+Autrement dit, $|u_n-u_m|<\varepsilon$ et donc $(u_n)$ est de Cauchy.
+\end{prop}    
+
+On va immédiatemment montrer que la réciproque est fausse dans $\mathbb{Q}$.
+
+\begin{exo}
+La suite $(u_n)$ est celle définie précédemment.
+\begin{enumerate}[font=\color{blue!50!green}]
+\item En se souvenant que $u_n^2>2$, montrer que $(u_n)$ décroit.
+\item En se souvenant que $u_n^2 \to 2$, déduire que $\displaystyle\forall p,\lim_{n\to+\infty} |u_{n+p}-u_n| = 0$.
+\item En conclure que $(u_n)$ est de Cauchy.
+\end{enumerate}
+\end{exo}
+
+Vue depuis le monde rationnel, cette suite n'est pourtant pas convergente, puisque $\sqrt{2}$ est irrationelle. Ceci nous fournit un contre-exemple à la réciproque de la propriété 1. 
+Pourtant, les termes semblent bien se rapprocher "de quelque chose" : ce quelque chose, c'est le nombre réel $\sqrt{ 2 }$, qu'il reste encore à définir. \label{motiv}
+
+\subsubsection{Quelques propriétés des suites de Cauchy}
+
+Avant d'attaquer la construction, on montre ici quelques propriétés qu'il sera utile d'avoir en tête :
+
+\begin{prop}
+Toute suite de Cauchy est bornée.
+\tcblower
+Soit $\varepsilon>0$. Il existe un rang $N$ tel que si $n,m \geq N$ alors $|u_n-u_m|<\epsilon$. En particulier, $|u_N-u_n|<\varepsilon$, c'est à dire $u_n \in [u_N - \varepsilon, u_N + \varepsilon]$. Mais alors $\forall n \in \mathbb{N}, u_n \leq \max (\{ u_k | k < N\} \cup \{u_N+\varepsilon\})$, et de même $u_n \geq \min (\{ u_k | k < N\} \cup \{u_N-\varepsilon\})$. Finalement, $(u_n)$ est majorée et minorée, donc bornée.
+\end{prop}
+
+\begin{prop}
+    \begin{itemize}
+        \item Toute suite de Cauchy $(u_n)$ ne convergeant pas vers 0 est non nulle à partir d'un certain rang.
+        \item Plus fortement, il existe un rationnel $a>0$ et un rang $N$ tel que pour tout $n\geq N, |u_n|>a$.
+    \end{itemize}
+    
+    \tcblower
+    \begin{itemize}
+        \item Supposons l'inverse : pour tout $N \in \mathbb{N}$ aussi grand soit-il, il existe un $n\geq N$ tel que $u_n=0$. Soit $\varepsilon >0$. Il existe $N \in \mathbb{N}$ tel que si $m>N$ et $p>N$, $|u_m-u_p|<\varepsilon$. Soit $n>N$ avec $u_n=0$ : alors $\forall m \geq N$, $|u_m-u_n|<\varepsilon$ soit $|u_m|<\varepsilon$. D'où $u_n \to 0$.
+        \item Encore une fois, supposons l'inverse : 
+    \end{itemize} 
+\end{prop}
+
+\begin{theoreme}[Analogue au théorème de la limite monotone]
+Toute suite rationnelle monotone bornée est de Cauchy.
+\tcblower
+On fait une démonstration par dichotomie dans le cas croissante et majorée.
+
+Soit $(u_n) \in \mathbb{Q}^{\mathbb{N}}$ croissante et majorée par un rationnel $M$. Pour tout $n$, $u_0\leq u_n \leq M$. On pose $a_0=u_0$ et $b_0=M$.
+
+On va construire par récurrence deux suites :
+\begin{itemize}
+    \item Si $[a_n, \frac{a_n+b_n}{2}]$ contient une infinité de termes de la suite, alors $[\frac{a_n+b_n}{2}, b_n]$ n'en contient aucun. On pose $a_{n+1}=a_n$ et $b_{n+1}=\frac{a_n+b_n}{2}$.
+    \item Sinon, $[\frac{a_n+b_n}{2}, b_n]$ contient tous les termes de la suite à partir d'un certain rang. On pose $a_{n+1}=\frac{a_n+b_n}{2}$ et $b_{n+1}=b_n$.
+\end{itemize}
+
+On a $|a_n-b_n| = \frac{1}{2^n}$.
+
+De plus, par construction, pour tout $n$ il existe un rang $N_n$ à partir duquel tous les termes de la suite sont dans $[a_n, b_n]$. Pour tout $m,p > N_n$ on a donc $|u_m-u_p|<\frac{1}{2^n}$.
+
+Soit maintenant $\varepsilon > 0$. Soit $n$ le plus petit entier tel que $2^n>\frac{1}{\varepsilon}$. Il existe un rang $N$ à partir duquel $|u_m-u_p|<\frac{1}{2^n}$. Mais par définition, $\frac{1}{2^n}<\varepsilon$. D'où finalement, $(u_n)$ est de Cauchy.
+\end{theoreme}
+\begin{exo}
+    Reprendre la démonstration ci dessus dans le cas décroissante et minorée, et ainsi achever la démonstration du théorème 1.
+\end{exo}
+
+\subsection{Une construction de $\mathbb{R}$ par les suites de Cauchy}
+\subsubsection{Les réels}
+On rappelle les notions suivantes :
+\begin{defini}
+Une relation d'équivalence sur E est une relation binaire $\sim$ sur E :
+\begin{itemize}
+\item réfléxive ($\forall x\in E, x\sim x$);
+\item transitive ($(x\sim y \land y\sim z) \implies x\sim z$);
+\item symétrique ($x\sim y \iff y\sim x$)
+\end{itemize}
+
+On appelle classe d'équivalence de $x$ l'ensemble noté $[x]=\{y\in E|y\sim x\}$. Remarquons que si $x\sim y$, $[x]=[y]$.
+\end{defini}
+
+\begin{prop}
+    L'ensemble des classes d'équivalence est une partition de E. On l'appelle ensemble quotient de $E$ par $\sim$, noté $E/\sim$.
+\end{prop}
+
+L'idée est de définir une relation d'équivalence $R$ sur les suites rationnelles :
+$$(a_{n}) R (b_{n}) \iff a_{n}-b_{n} \to 0$$
+On vérifie bien que c'est une relation d'équivalence :
+\begin{itemize}
+    \item $a_n-a_n=0 \to 0$,
+    \item si $a_n-b_n \to 0$, alors $b_n-a_n = -(a_n-b_n) \to -0 =0$,
+    \item si $a_n-b_n \to 0$ et $b_n-c_n \to 0$, alors $a_n-b_n+b_n-c_n = a_n-c_n \to 0$.
+\end{itemize}
+
+On peut donc partitionner $\mathcal{C}_{\mathbb{Q}}$ : cette partition est $\mathbb{R}$. Chaque classe d'équivalence est alors un réel, représenté par toutes les suites rationnelles qui l'approximent.
+
+En identifiant tout rationnel $q$ à la classe d'équivalence de la suite stationnaire dont tous les termes sont égaux à $q$, $\mathbb{Q}\subset \mathbb{R}$.
+
+\subsubsection{Leur structure algébrique}
+On peut ensuite définir les opérations usuelles sur $\mathbb{R}$ :
+\begin{defini}
+    \begin{enumerate}
+        \item $[(a_n)]+[(b_n)]=[(a_n+b_n)]$
+        \item $[(a_{n})]\times [(b_{n})]=[(a_{n}b_{n})]$
+    \end{enumerate}
+ 
+    \tcblower
+    Il faut ici vérifier que quelque soit la suite rationelle qu'on a choisi pour représenter un réel, l'addition et la multiplication donnera le même résultat. Autrement dit :
+    \begin{enumerate}
+        \item Si $(a_n)R(a'_n)$, $[(a_n+b_n)]=[(a'_n+b_n)]$.
+        \item Si $(a_n)R(a'_n)$, $[(a_nb_n)]=[(a'_nb_n)]$.
+    \end{enumerate}
+
+    En effet comme attendu :
+    \begin{enumerate}
+    \item $a_n-a'_n = (a_{n}+b_{n})- (a'_{n}+b_{n})$, donc si $a_n-a'_n \to 0$, $(a_n+b_n)R(a'_n+b_n)$ soit $[(a_n+b_n)]=[(a'_n+b_n)]$.
+    \item Si $a_n-a'_n \to 0$, comme $(b_n)$ est de Cauchy donc bornée, $b_n(a_n-a'_n) \to 0$.  D'où $(a_nb_n)R(a'_nb_n)$ soit $[(a_nb_n)]=[(a'_nb_n)]$.
+    \end{enumerate}
+\end{defini}
+
+On peut montrer que ceci définit une structure de corps. Tout le côté anneau est impliqué de façon assez mécanique par la structure d'anneau de $\mathcal{C}_\Q$. On montrera simplement la propriété suivante :
+\begin{prop}[Existence d'un inverse]
+    Soit un réel $x = [(x_n) ]\neq 0$. Il existe $y=[(y_n)]$ tel que $xy=1$.
+    \tcblower
+    Comme $(x_n)$ est une suite de Cauchy ne tendant pas vers 0, il existe un rang $N$ à partir duquel aucun de ses termes n'est nul. 
+    
+    On définit donc la suite $(y_n)$ : si $n\geq N$, $y_n = \frac{1}{x_n}$, sinon, $y_n=42$. (Ce 42 n'a en fait aucune importance, puisque ce qui nous intéresse est le comportement d'$(y_n)$ à l'infini.)
+
+    Montrons que cette suite est bien de Cauchy. 
+    
+    Enfin pour tout $n\geq N$, 
+\end{prop}
+
+On définit de plus une relation d'ordre sur $\mathbb{R}$ :
+\begin{defini}
+Soit $x = [(a_n)] \in \mathbb{R}$. $x$ est positif si $x\neq 0$ et si il existe un rang $N$ tel que $\forall n \geq N, a_n > 0$. 
+\tcblower
+Il faut encore vérifier que cette définition a un sens, c'est à dire que si $a_n-b_n \to 0$ et $(a_n)$ ne tend pas vers 0, si $(a_n)$ finit par n'avoir que des termes positifs, alors $(b_n)$ aussi. 
+
+Supposons que $\forall N, \exists n \geq N, b_n \leq 0$. $a_n-b_n \to 0$ c'est à dire $\forall \varepsilon >0, \exists N, n \geq N \implies  |a_n-b_n|<\varepsilon$.
+
+Soit $\varepsilon >0$. $\exists N, n \geq N \implies  |a_n-b_n|<\frac{\varepsilon}{2}$. De plus, comme $(a_n)$ est de Cauchy, $\exists N', n, p \geq N' \implies |a_{n}-a_{p}| < \frac{\varepsilon}{2}$.
+
+Enfin, $\exists m \geq \max(N, N'), b_m \leq 0$.  Mais alors comme $b_{m}- \frac{\varepsilon}{2}<a_m<b_{m}+ \frac{\varepsilon}{2}$, $\forall n \geq \max(N, N'), |a_n-a_m|< \frac{\varepsilon}{2}$, $b_m-\varepsilon<a_n<b_m+\varepsilon$ d'où $0<a_n\leq \varepsilon$. D'où $a_n \to 0$. 
+\end{defini}
+
+On peut maintenant montrer que $\mathbb{R}$ est un corps ordonné, dont on rappelle la définition :
+\begin{defini}[Corps ordonné]
+    Un corps $(\K, +, \times)$ est dit ordonné quand il existe une partie $P$ de $\K$ - les éléments de $P$ sont dits positifs - telle que :
+    \begin{itemize}
+        \item Pour tout $x\in \K$, soit $x\in P$, soit $x=0$, soit $-x\in P$.
+        \item Si $(x,y)\in P^2$, $x+y \in P$ et $x\times y \in P$.
+    \end{itemize}
+\end{defini}
+
+\subsection{Une autre construction de $\mathbb{R}$}
+\subsubsection{Les réels, version 2}
+
+On peut aussi voir le réel $\sqrt{2}$ comme la borne supérieure de l'ensemble $\{x\in \Q | a<0 \lor x^2<2\}$, ou la borne inférieure de l'ensemble $\{x\in \Q | a>0 \land x^2>2\}$.
+
+Ces deux ensembles forment ce qu'on appelle une coupure de Dedekind :
+\begin{defini}
+    Soit $(A, B)$ un couple de parties de $\Q$. C'est une coupure de Dedekind quand :
+    \begin{itemize}
+        \item $A\cap B = \varnothing$
+        \item $A\cup B = \Q$
+        \item Pour tout $(x,y) \in A\times B, x<y$.
+        \item B ne possède pas de borne inférieure. 
+    \end{itemize}
+\end{defini}
+
+$\R$ est l'ensemble de ces coupures.
+
+On identifie tout rationnel $q$ à une coupure, $(\{x\in \Q | x \leq q\}, \{x\in \Q | x > q\})$. On voit que le quatrième point a pour effet (c'est en fait son seul intérêt) d'exclure les couples $(\{x\in \Q | x < q\}, \{x\in \Q | x  \geq q\})$ de $\R$, ce qui permet de bien définir la coupure associée à un rationnel.
+
+Avec cette identification, comme précédemment $\Q \subset \R$.
+
+\subsubsection{Leur structure algébrique}
+
+On peut comme précédemment définir addition et multiplication, puis montrer que $\R$ a une structure de corps ordonné.
+
+\begin{defini}[Addition]
+    Soient $(A, B)$ et $(A', B')$ deux coupures. On définit l'ensemble $A+A'=\{x+y | (x,y) \in A \times A'\}$.
+    
+    Alors $(A+A', \Q\backslash A+A')$ est une coupure.
+    \tcblower
+    \begin{itemize}
+        \item Évidemmentpu $A+A'\cap \Q\backslash A+A'=\varnothing$ et $A+A'\cup \Q\backslash A+A'=\Q$.
+        \item Soit $x\in A+A'=a+a'$ et $y\in\Q\backslash A+A'$. Évidemment $x\neq y$. Supposons $x>y$, alors $a>y-a'$. Mais alors $y-a' \in A$, et donc $y-a'+a'=y\in A+A'$. Comme on avait défini $y\in\Q\backslash A+A'$, c'est impossible.
+    \end{itemize}
+\end{defini}
+
+\begin{defini}[Multiplication]
+    
+\end{defini}
+
+\subsection{Les propriétés fondamentales de $\mathbb{R}$}
+On suppose au début de cette partie qu'on a bien le droit de parler de $\R$ comme d'un "unique objet", qu'il est été construit à partir des coupures de Dedekind ou des suites de Cauchy. À la fin de cette partie, on montrera qu'elles sont effectivement isomorphes, c'est à dire que d'un point de vue structurel, elles sont parfaitement identiques. On prouvera même mieux : toutes les structures possédant certaines propriétés "$\R$-esques" sont isomorphes. C'est cette unicité à isomorphisme près qui permet à vos camarades un peu moins braves de se passer totalement de la construction de $\R$ et de l'introduire sur le mode axiomatique.
+
+\subsubsection{La complétude, à partir des suites de Cauchy}
+
+On rappelle que la borne supérieure d'une partie d'un ensemble est le plus petit de ses majorants.
+
+\begin{prop}[Caractérisation séquentielle de la borne supérieure]
+    
+\end{prop}
+
+Une première conséquence importante :
+
+\begin{theoreme}[Théorème de la limite monotone] \label{limmono}
+    Toute suite bornée et monotone converge.
+    \tcblower
+    On considère $\ell=\sup\{u_n|n\in \N\}$. Soit $\forall\varepsilon > 0$. $\exists n_0 \in \N, \ell-\varepsilon<u_{n_0}\leq \ell$ puisque sinon $\ell-\varepsilon$ serait un majorant de $\{u_n|n\in \N\}$, ce qui est impossible. Mais comme $(u_n)$ est croissante, $\forall n \geq n_0, \ell-\varepsilon < u_n < \ell$. Autrement dit, $u_n \to \ell$.
+\end{theoreme}
+
+Une deuxième conséquence importante :
+
+\begin{defini}[Suites adjacentes]
+    Deux suites réelles $(u_n)$ et $(v_n)$ sont dites adjacentes si
+    \begin{itemize}
+        \item L'une est croissante et l'autre décroissante.
+        \item $u_n-v_n$ tend vers 0.
+    \end{itemize}
+\end{defini}
+
+\begin{theoreme}[Théorème des suites adjacentes]
+    Deux suites adjacentes convergent vers la même limite.
+    \tcblower
+    Soient $(a_n)$ et $(b_n)$ deux suites adjacentes, avec $(a_n)$ croissante et $(b_n)$ décroissante.
+    
+    Commençons par montrer que $\forall n \in \N, a_n\leq b_n$. Soit $n\in \N$. Supposons l'inverse. Alors $\forall p > n, b_p\leq b_n<a_n\leq a_p$ et donc  $\forall p > n, |b_p-a_p|>|a_n-b_n|$. Mais comme $|b_p-a_p| \to 0$,  ceci est absurde.
+
+    On sait maintenant que $\forall n \in \N, a_0 \leq a_n \leq b_n \leq b_0$. On peut donc appliquer le \hyperref[limmono]{théorème de la limite monotone} : $(a_n)$ est croissante et majorée par $b_0$ et $(b_n)$ est décroissante et minorée par $a_0$. Les deux suites convergent donc vers $\ell_1$ et $\ell_2$.
+
+    Enfin comme $a_n-b_n \to 0$ $\ell_1-\ell_2=0$ donc les deux suites convergent vers la même limite. 
+\end{theoreme}
+
+On peut enfin montrer que dans $\R$, toute suite de Cauchy converge. On a ainsi bien défini tous les "quelque chose" qu'on évoquait \hyperref[motiv]{en fin de paragraphe 1.1}.
+
+\begin{theoreme}[Critère de Cauchy ou Cauchy-complétude]
+    Toute suite réelle de Cauchy converge.
+    \tcblower
+    Soit $(u_n)$ une suite de Cauchy et $\varepsilon > 0$ :
+    $$\exists N \in \N, p \geq N \implies |u_N-u_p|<\varepsilon$$
+    L'idée de cette preuve est d'encadrer les termes de la suite entre deux suites adjacentes.
+
+    Pour tout $n\in \N$, on pose $a_n = \inf \{u_k|k\geq N\}$ et $b_n = \sup \{u_k|k\geq n\}$. 
+    
+    Comme $\{u_k|k\geq n+1\} \subset \{u_k|k\geq n\}$, on a bien $a_n \leq a_{n+1} \leq b_{n+1} \leq b_n$.
+
+    De plus, soit $\varepsilon \geq 0$ Comme $(u_n)$ est de Cauchy, il existe $N$ tel quel $\forall n \geq N, |u_N-u_n|<\frac{\epsilon}{2}$. On a $\{u_k|k\geq N\} \subset ]u_N-\frac{\varepsilon}{2}, u_N+\frac{\varepsilon}{2}[$ soit $b_N-a_N < \varepsilon$. Mais par croissance/décroissance, $\forall n \geq N, b_n-a_n \leq b_N-a_N < \varepsilon$, d'où $b_n-a_n \to 0$. 
+\end{theoreme}
+
+Cette propriété de $\R$ est importante et se généralise aux espaces métriques.
+
+\begin{defini}[Suite de Cauchy]
+    Soit $(E,d)$ un espace métrique et $(u_n) \in E^{\N}$. $(u_n)$ est de Cauchy quand
+    $$\forall \varepsilon > 0, \exists N \in \N, \forall p, q > N, d(u_p, u_q) < \varepsilon$$
+    \tcblower
+    Avec la distance usuelle sur les nombres rationnels $d(a,b)=|a-b|$ on retrouve bien la précédente définition.
+\end{defini}
+
+\begin{defini}[Espace métrique complet]
+    Un espace métrique est dit complet quand toute suite de Cauchy y converge.
+\end{defini}
+
+\begin{ex}
+    $\R^n$ est complet.
+    \tcblower
+\end{ex}
+
+
+
+\subsubsection{La propriété de la borne supérieure, à partir des coupures de Dedekind}
+
+\subsubsection{Ces deux constructions sont équivalentes}
+\begin{theoreme}[Existence et unicité de $\mathbb{R}$]
+    Il existe un corps totalement ordonné vérifiant la propriété de la borne supérieure, unique à isomorphisme près.    
+\end{theoreme}
+
+\subsubsection{$\mathbb{R}$ n'est pas dénombrable}
+Cette dernière partie concerne le cardinal de $\R$. Dans \hyperref[card]{le chapitre 2}, on a établi une théorie général des cardinaux transfinis. On a évoqué l'hypothèse du continu, c'est à dire le problème initialement posé par Cantor sur les cardinaux entre $\aleph_0$, cardinal de $\N$ et $2^{\aleph_0}$, cardinal de $\mathcal{P}(\N)$.
+
+On justifie ici l'appelation "hypothèse du continu" en montrant que $2^{\aleph_0}$ est le cardinal de $\R$.
+
+\begin{theoreme}
+    $\R$ est équipotent à $\mathcal{P}(N)$.
+    \tcblower
+\end{theoreme}
+
+\begin{theoreme}[$\R$ n'est pas dénombrable]
+    La propriété précédente nous permet directement de conclure grâce au théorème de Cantor qu'il n'existe aucune bijection entre $\N$ et $\R$. 
+\end{theoreme}

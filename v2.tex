@@ -1,0 +1,52 @@
+\documentclass[oneside]{book}
+\usepackage{preamble}
+
+\begin{document}
+\frontmatter
+\thispagestyle{empty}
+\AddToShipoutPicture*{}
+{\HUGE \textsf{\\ Also sprach \\ Marc Schaul}}
+
+{\huge \textsf{\\Mathe für alle und keinen}}
+
+\vspace{1em}
+{\Large \noindent Thomas \textsc{Arocena} \\ Constance \textsc{Sarrazin} \\ Marc \textsc{Schaul} (apocryphe)}
+\vfill
+\epigraph{\large «~Une exposition très claire, presque éblouissante. Je n'ai jamais lu quoi que ce soit d'aussi brillant depuis mon arrivée en sup 4.~»}{\Large --- Marc Schaul (probablement)}
+\epigraph{\large «~Vous savez, ce n'est pas parce que vous ajoutez des «~probablement~» que vous pouvez me faire dire tout et n'importe quoi !~»}{\Large --- Marc Schaul (probablement)}
+\newpage
+\tableofcontents
+
+\addtocontents{toc}{Le niveau d'une section est indiqué par sa couleur : verte quand sa quasi-entiereté est au programme (officiel ou officieux) des classes préparatoires (MPSI/MP) ; bleue quand son contenu est directement accessible à un spé sans être au programme, autrement dit, quand tous ses préliminaires sont verts ; rouge pour les divagations au delà. 
+
+\medskip
+
+Les items grisés signalent une section en cours de rédaction. L'ensemble est en amélioration constante et comporte selon toute probabilité des erreurs graves. Pour toute réclamation, merci de frapper Thomas (mais pas trop fort histoire qu'il puisse quand même passer les concours)
+
+\medskip
+
+On a veillé à ce que l'ensemble ne soit pas circulaire, mais cela ne veut pas dire que nous avons évité les références en avant, au contraire. Nous nous sommes affranchis de l'ordre linéaire sans scrupule lorsque cela était nécessaire. En particulier, les sections rouges piochent librement dans le contenu des sections vertes sans forcément renvoyer aux pages correspondantes.
+
+\medskip
+
+Cette version est celle du \today. Pour accéder à l'historique, faites un tour sur le repo GitHub.\hfill\par}
+\mainmatter
+\partie{Fourre-tout}{}
+\chapter{Théorie des ensembles}
+\greensection{Une théorie sur des bases frêles}{Une introduction à la terminalogie ensembliste sur le mode dit naïf : unions, intersections, produit cartésien. Algèbre de Boole des parties d'un ensemble. Relations binaires, relations d'ordre, d'équivalence, partition. Applications, injections, surjections, bijections. Argument diagonal de Cantor. Théorème de Schröder-Bernstein.}
+
+\bluesection{Axiomatisation de Zermelo-Frankel (ZFC)}{Paradoxes de Berry, de Russel : axiomes de compréhension, de compréhension restreinte. Classes, correspondances fonctionnelles. Axiome de séparation. Axiomes de l'union, de la paire, de l'ensemble des parties. Bons ordres, ordinaux, cardinaux, leur arithmétique. Axiome du choix, lemme de Zorn, théorème de Zermelo et cardinal de tout ensemble.}
+
+\bluesection{Objets mathématiques usuels et ensembles purs}{Retour sur l'axiome de fondation. Rang, hiérarchie cumulative de Von Neumann, ensemble pur. Construction de copies de $\N$, $\Z$, $\Q$ dans ZFC. Une première construction de $\R$. Applications des ordinaux aux mathématiques « usuelles » : les suites de Goodstein.}
+
+\partie{Algèbre}{}
+\refstepcounter{chapter}
+\greensection{Groupes, premières définitions et exemples}{Loi de composition, monoïde, groupe. Morphismes. Sous-groupe, théorème de Lagrange. Ordre d'un élément. Groupe produit, sous-groupe normal et groupe quotient. Exemples : $\Z$, $(\Z/n\Z, +)$, $\mathfrak{S}_n$. Groupe symétrique, signature et théorème de Cayley.}
+
+\greensection{Anneaux et corps, premières définitions et exemples}{Idéal, anneau quotient. Arithmétique dans un anneau intègre : divisibilité, anneaux euclidiens. $\mathbb{Z}$ et $\mathbb{R}[X]$ sont principaux. Relation de Bézout. Éléments irréductibles, premiers, factorisation. Anneau de polynômes. Corps, caractéristique. Corps de fractions. Clotûre algébrique et théorème fondamental de l'algèbre. Indicatrice d'Euler et $\mathbb{F}_p$.}
+
+\partie{Topologie}{}
+\partie{Analyse}{}
+\partie{Théorie des nombres}{}
+\partie{Histoire et philosophie}{}
+\end{document}
