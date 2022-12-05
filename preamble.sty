@@ -63,23 +63,33 @@
 
 \newcounter{defini}
 \newenvironment{defini}[1][]{\refstepcounter{defini}
-\medskip\begin{tcolorbox}[coltitle=black, colframe=blue!50!green!40!white, colback=white, adjusted title=Définition~\thedefini \ifthenelse{\equal{#1}{}}{}{\ (#1)}]}{\end{tcolorbox}\medskip}
+\medskip\begin{tcolorbox}[enhanced,skin=enhancedmiddle,
+    colframe=gray!10!white, leftrule=0pt, rightrule=0pt, bottom=0mm,boxsep=1mm,
+    borderline west={0.1mm}{0mm}{black},
+    borderline west={0.1mm}{1mm}{black}, title={\color{black} \textbf{Définition \thedefini} \ifthenelse{\equal{#1}{}}{}{\ (\textsc{#1})}}]}{\end{tcolorbox}\medskip}
 
 \newcounter{prop}
 \newenvironment{prop}[1][]{\refstepcounter{prop}
-\medskip\begin{tcolorbox}[coltitle=black, colframe=blue!50!green!20!white, colback=white, adjusted title=Propriété~\theprop \ifthenelse{\equal{#1}{}}{}{\ (#1)}]}{\end{tcolorbox}\medskip}
+\medskip\begin{tcolorbox}[enhanced,skin=enhancedmiddle,
+    colframe=gray!10!white, leftrule=0pt, rightrule=0pt, bottom=0mm,boxsep=1mm,
+    borderline west={0.1mm}{0mm}{black}, title={\color{black} \textbf{Propriété \theprop} \ifthenelse{\equal{#1}{}}{}{\ (\textsc{#1})}}]}{\end{tcolorbox}\medskip}
 
 \newcounter{exo}
 \newenvironment{exo}[1][]{\refstepcounter{exo}
-\medskip\begin{tcolorbox}[coltitle=black, colframe=blue!50!green!20!white, colback=white, adjusted title=Exercice~\theexo \ifthenelse{\equal{#1}{}}{}{\ (#1)}]}{\end{tcolorbox}\medskip}
+\medskip\begin{tcolorbox}[enhanced,skin=enhancedmiddle,
+    colframe=gray!10!white, leftrule=0pt, rightrule=0pt, bottom=0mm,boxsep=1mm,
+    borderline west={0.1mm}{0mm}{black}, title={\color{black} \textbf{Exercice \theexo} \ifthenelse{\equal{#1}{}}{}{\ (\textsc{#1})}}]}{\end{tcolorbox}\medskip}
+
 
 \newcounter{ex}
 \newenvironment{ex}[1][]{\refstepcounter{ex}
-\medskip\begin{tcolorbox}[coltitle=black, colframe=blue!50!green!20!white, colback=white, adjusted title=Exemple~\theex \ifthenelse{\equal{#1}{}}{}{\ (#1)}]}{\end{tcolorbox}\medskip}
+\medskip\begin{tcolorbox}[enhanced,skin=enhancedmiddle,
+    colframe=gray!10!white, leftrule=0pt, rightrule=0pt, bottom=0mm,boxsep=1mm,
+    borderline west={0.1mm}{0mm}{black}, title={\color{black} \textbf{Exemple \theex} \ifthenelse{\equal{#1}{}}{}{\ (\textsc{#1})}}]}{\end{tcolorbox}\medskip}
 
-\newenvironment{boite}[1]{\medskip\begin{tcolorbox}[coltitle=black, colframe=blue!50!green!20!white, colback=white, adjusted title=#1]}{\end{tcolorbox}\medskip}
-
-\newenvironment{suite}{\addtocounter{prop}{-1}\begin{prop}[Suite]}{\end{prop}}
+\newenvironment{boite}[1]{\medskip\begin{tcolorbox}[enhanced,skin=enhancedmiddle,
+    colframe=gray!10!white, leftrule=0pt, rightrule=0pt, bottom=0mm,boxsep=1mm,
+    borderline west={0.1mm}{0mm}{black}, adjusted title=#1]}{\end{tcolorbox}\medskip}
 
 \DeclareMathOperator{\Ima}{Im}
 \DeclareMathOperator{\Id}{Id}
@@ -143,6 +153,9 @@
 
 \newcommand{\greensection}[2]{\section[\texorpdfstring{\color{cadmiumgreen!50!black}#1}{#1}]{#1}
 \sectioninfo{\texorpdfstring{{\large \color{cadmiumgreen} $\blacktriangleright$ \color{black}}~#2~{\large \color{cadmiumgreen} $\blacktriangleleft$ \color{black}}}{}}}
+
+\newcommand{\redsection}[2]{\section[\texorpdfstring{\color{cadmiumred!50!black}#1}{#1}]{#1}
+\sectioninfo{\texorpdfstring{{\large \color{cadmiumred} $\blacktriangleright$ \color{black}}~#2~{\large \color{cadmiumred} $\blacktriangleleft$ \color{black}}}{}}}
 
 \usepackage{bookmark}
 \makeatletter
