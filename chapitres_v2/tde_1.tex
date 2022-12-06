@@ -51,11 +51,12 @@ Ces opérations sont la transcription directe du «~et~» et du «~ou~» logique
 
 On peut encore faire quelques diagrammes de Venn pour illustrer la situation.
 
-\medskip
+\vfill
 \begin{tikzpicture}
-\draw[color=gray] (0,0) rectangle (\textwidth, 2);
-\draw (\textwidth/2, 1) node{Toujours pas};
+\draw[color=gray] (0,0) rectangle (\textwidth, 3.5);
+\draw (\textwidth/2, 1.75) node{Toujours pas};
 \end{tikzpicture}
+\vfill
 
 On peut encore transcrire l'implication logique par la notion de partie.
 
@@ -63,11 +64,12 @@ On peut encore transcrire l'implication logique par la notion de partie.
     Soit $A$ et $B$ deux ensembles. On dit que $A$ est inclus, contenu dans $B$, ou encore que c'est une partie ou un sous-ensemble de $B$, quand $x\in A \implies x\in B$, c'est à dire $\forall x\in A, x\in B$. On le note $A\subset B$. On notera $\Ps(B)$ l'ensemble de toutes les parties de $B$.
 \end{defini}
 
-Par exemple, comme $x\in A \text{ et } x\in B \implies x\in A$, il est facile de se convaincrelèvent que $A\cap B$ est une partie de $A$.
+Par exemple, comme $x\in A \text{ et } x\in B \implies x\in A$, il est facile de se convaincre que $A\cap B$ est une partie de $A$. 
+\newpage
+De même, comme $x\in A \implies x\in A$, on a toujours $A\subset A$.\footnote[2]{Les anglo-saxons écrivent souvent $\subseteq$ pour l'inclusion telle que nous venons de la définir et réservent $\subset$ à l'inclusion stricte : pour eux, $A\subset B\iff A \subseteq B \text{ and } A\neq B$. On écrira $A \subsetneq$ dans ce cas.}
 
 Un ensemble remarquable est l'ensemble vide, ne comportant aucun élément, qu'on note $\varnothing$ : $x\in\varnothing$ étant toujours faux, l'implication $x\in\varnothing \implies x\in A$ est, elle, toujours vraie, et pour tout ensemble $A$, $\varnothing \subset A$.  
 
-\newpage
 De plus, dans le cas particulier où $A$ est un ensemble avec un nombre fini d'éléments, on peut lister toutes ses parties. Par exemple, l'ensemble $\{1,2\}$ a pour parties~:
 \[\varnothing \qquad \{1\} \qquad \{2\} \qquad \{1,2\}\]  
 $\Ps(\{1,2\})$ comporte donc 4 éléments.
@@ -137,8 +139,102 @@ Soient deux ensembles $A$ et $B$. Le produit cartésien $A\times B$ («~A croix 
 
 On suppose ici que la notion de couple est intuitive\footnote{Cela dit, on peut aussi définir un couple d'une façon purement ensembliste, par exemple en posant $(a,b)=\{a, \{a, b\}\}$. Une telle définition permet d'identifier le premier élément, mais elle peut sembler artificielle à ce stade.} : il s'agit d'une paire ordonnée, contrairement à un ensemble à deux éléments qui ne l'est pas. Autrement dit $(a,b)=(a',b')\implies a=a' \text{ et } b=b'$, tandis que $\{a,b\}=\{a',b'\}\implies (a=a' \text{ et } b=b') \text{ ou } (a=b' \text{ et } b=a')$. 
 
-En l'état, $(A\times B)\times C$ et $A\times (B\times C)$ ne sont pas égaux, mais une fois qu'on disposera d'une définition du produit cartésien d'une famille d'ensembles (une fois que celles-ci auront été définies) on pourra identifier ces deux ensembles à $A\times B \times C$. Pour le moment ceci n'est pas très important, et on peut provisoirement se restreindre à des situations mettant en jeu le produit simple de deux éléments. En particulier, ceci suffit pour définir les relations binaires.
+En l'état, $(A\times B)\times C$ et $A\times (B\times C)$ ne sont pas égaux, mais une fois qu'on disposera d'une définition du produit cartésien d'une famille d'ensembles, on pourra identifier ces deux ensembles à $A\times B \times C$. 
 
-\subsection*{Relations binaires, d'ordre, d'équivalence}
-\subsection*{Applications et familles}
-\subsection*{Bijection et cardinal}
+Pour le moment ceci n'est pas très important, et on peut provisoirement se restreindre à des situations mettant en jeu le produit simple de deux éléments. En particulier, ceci suffit pour définir les relations binaires.
+
+\subsection*{Relations binaires et d'ordre}
+D'un point de vue logique, une relation binaire entre deux objets est comparable à une fonction -- au sens informatique du terme -- prenant deux arguments et renvoyant une valeur logique, vrai ou faux. Ceci correspond en général à l'introduction d'un nouveau symbole. Par exemple, l'égalité, l'appartenance d'ensembles, l'inclusion d'ensembles sont des relations binaires.
+
+D'un point de vue ensembliste, ceci correspond à la donnée d'un sous-ensemble :
+\begin{defini}
+    Une relation binaire $\mathcal{R}$ entre éléments de $X$ et de $Y$ peut être vue comme un sous-ensemble $\mathcal{R}$  de produit cartésien $X\times Y$. On notera $x\mathcal{R} y$ pour $(x,y)\in \mathcal{R}$.
+\end{defini}
+
+On parlera de relation binaire sur $X$ pour une relation entre éléments de $X$. 
+
+Un type particulier de relations binaires sont les relations d'ordre, habituellement notées $\leq$.
+
+\begin{defini}
+    Une relation binaire sur un ensemble $X$ est une relation d'ordre $\leq$ sur $X$ quand :
+    \begin{itemize}
+        \item réflexive : $\forall x\in X, x\leq x$
+        \item antisymétrique : $\forall x,y \in X, x \leq y \text{ et } y \leq x \implies x=y$
+        \item transitive : $\forall x,y,z \in X, x\leq y \text{ et } y \leq z \implies x\leq z$
+    \end{itemize}  
+\end{defini}
+
+On peut d'ores et déjà donner un exemple.
+
+\begin{prop}
+    Soit $E$ un ensemble. L'inclusion $\subset$ est une relation d'ordre sur $\Ps(E)$.
+\end{prop}
+\begin{demo}
+\begin{itemize}
+    \item Il s'agit bien d'une relation binaire, qui correspond à l'ensemble $\{(A,B)\in \Ps(E)^2 | \forall x\in E, x\in A \implies x\in B\}$.
+    \item Pour tout ensemble $A$, $A\subset A$.
+    \item Si $X\subset Y$ et $Y\subset X$, par double implication, $x \in X \iff x\in Y$. Autrement dit, $X$ et $Y$ ont exactement les mêmes éléments, soit $X=Y$.
+    \item Si $x\in X \implies x\in Y$ et $x\in Y \implies x\in Z$, $x\in X \implies x\in Z$. Autrement dit, si $X\subset Y$ et $Y\subset Z$, alors $X\subset Z$.
+\end{itemize}
+D'où $\subset$ relation d'ordre.
+\end{demo}
+
+Remarquons que selon cette définition, la relation $<$ (par exemple sur les entiers) n'est pas une relation d'ordre. Cepandant, on peut définir les relations d'ordre stricte :
+
+\begin{defini}
+    Une relation binaire sur un ensemble $X$ est une relation d'ordre strict $<$ sur $X$ quand :
+    \begin{itemize}
+        \item Elle est irréfléxive : $\forall x, \text{ non } x < x$
+        \item Elle est transitive.
+    \end{itemize}
+\end{defini}
+
+À partir d'une relation d'ordre $\leq$, on définit l'ordre strict correspondant $x<y \iff x\leq y \text{ et } x\neq y$. Réciproquement, à partir d'un ordre strict $<$, on peut poser $x\leq y \iff x<y \text{ ou } x=y$.
+
+[majorant, minorant, yada yada]
+
+\subsection*{Applications, bijections et familles}
+On va en fait définir une application comme une certaine relation binaire.
+
+\begin{defini}
+    
+\end{defini}
+
+\subsection*{Relations d'équivalences et partitions}
+Un autre type de relations binaires remarquables sont les relations d'équivalence.
+
+\begin{defini}
+    Une relation d'équivalence sur un ensemble $X$ est une relation binaire $\sim$ sur X :
+    \begin{itemize}
+        \item réflexive,
+        \item symétrique : $\forall x \forall y, x\sim y \implies y \sim x$,
+        \item transitive.
+    \end{itemize}
+\end{defini}
+
+Un premier exemple de relation d'équivalence est bien sûr l'égalité. Un autre exemple est donné par les congruences en arithmétique : en particulier si on pose $p \sim q \iff p$ et $q$ ont la même parité, il s'agit d'une relation d'équivalence.
+
+Toute l'utilité de la notion réside en la possibilité de classer tous les éléments en «~paquets~», qui sont les classes d'équivalences :
+
+\begin{defini}
+    Soit $x\in X$. On note $\bar{x}$ ou $[x]$ la classe d'équivalence de $x$, qui est l'ensemble $\{y\in X | x\sim y\}$
+\end{defini}
+
+Formellement, on dit que les classes d'équivalences forment une partition de $X$ :
+\begin{wrapfigure}[2]{r}{0.25\textwidth}
+    \vspace{-0.5em}
+    \begin{tikzpicture}
+        \draw[color=gray] (0,0) rectangle (\textwidth/4, 3.25);
+        \draw (\textwidth/8, 1.625) node{Oui oui baguette};
+    \end{tikzpicture}
+\end{wrapfigure}
+
+\vspace{-1em}
+\begin{defini}
+    Soit $X$ un ensemble. On dit que la famille d'ensembles $(X_i)$ forme une partition de $X$ quand :
+    \begin{itemize}
+        \item $\forall i \in I, X_i \neq \varnothing$
+        \item $\bigcup X_i = X$
+        \item $\forall i \neq j, X_i \cap X_j = \varnothing$
+    \end{itemize}
+\end{defini}
